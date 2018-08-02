@@ -1,0 +1,24 @@
+<!-- Without the <!DOCTYPE html>  iw will work, if this is extended correctly-->
+{% extends 'basic_app/base.html' %}
+<!-- If we need to import some static files -->
+{% load staticfiles %}
+{% block body_block%}
+<div class="jumbotron">
+<!-- These registered contents are passed through views.py -->
+  {% if registered %}
+    <h1>Thank you for registering!</h1>
+  {%else%}
+    <h1>Register Here!</h1>
+    <h3>Fill out the form:</h3>
+    <!-- Then we need to make the form using template tagging -->
+    <!-- bez we are uploading multimedia data we are uploading we need to tell enctype -->
+    <form enctype="multipart/form-data" method="post" >
+      {% csrf_token %}
+      <!-- the user and profile are going to defined inside the context dictionary of views. -->
+      {{ user_form.as_p}}
+      {{profile_form.as_p}}
+      <input type="submit" name="" value="Register">
+    </form>
+  {% endif%}
+</div>
+{% endblock %}
